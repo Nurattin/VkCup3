@@ -6,6 +6,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -29,16 +31,21 @@ import com.smartdev.vkcup2.ui.theme.FillSelected
 import com.smartdev.vkcup2.ui.theme.MainBackground
 import com.smartdev.vkcup2.util.Emoji
 import com.smartdev.vkcup2.util.horizontalSpacer
+import com.smartdev.vkcup2.util.vibrateDevice
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ReactionScreen(
-    viewModel: ReactionViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: ReactionViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    onBackClick: ()->Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val listEmoji = remember {
+        listOf(Emoji.Emoji5, Emoji.Emoji11, Emoji.Emoji1, Emoji.Emoji14, Emoji.Emoji19)
+    }
+    val context = LocalContext.current
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -140,8 +147,7 @@ fun ReactionScreen(
                             .background(MainBackground),
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
-                        repeat(4) {
-                            val emoji = remember { Emoji.values()[it] }
+                        listEmoji.forEach { emoji ->
                             val interactionSource = remember { MutableInteractionSource() }
                             val composition =
                                 rememberLottieComposition(spec = LottieCompositionSpec.RawRes(emoji.res))
@@ -163,6 +169,7 @@ fun ReactionScreen(
                                             interactionSource = interactionSource,
                                             indication = rememberRipple(radius = 20.dp),
                                             onLongClick = {
+                                                vibrateDevice(context)
                                                 showEmojiOnFullScreen.value = true
                                                 emojiOnFullScreen.value = emoji
                                                 showReactionIcons.value = false
@@ -187,8 +194,8 @@ fun ReactionScreen(
                 AnimatedVisibility(
                     modifier = Modifier.align(Alignment.Center),
                     visible = showEmojiOnFullScreen.value,
-                    enter = fadeIn(animationSpec = tween(600)),
-                    exit = fadeOut(animationSpec = tween(600))
+                    enter = fadeIn(animationSpec = tween(800)),
+                    exit = fadeOut(animationSpec = tween(800))
                 ) {
                     val composition =
                         rememberLottieComposition(
@@ -196,7 +203,7 @@ fun ReactionScreen(
                         )
                     LaunchedEffect(key1 = composition.isComplete) {
                         if (composition.isComplete) {
-                            delay(1500)
+                            delay(2000)
                             showEmojiOnFullScreen.value = false
                             viewModel.reactPublication(
                                 publicationPos = index,
@@ -241,8 +248,22 @@ fun ReactionScreen(
                     )
                 }
             }
-
             Divider(color = Color.White.copy(0.1f))
+        }
+        items(items = Emoji.values()) {
+            Column() {
+                Text(text = it.name)
+                val composition =
+                    rememberLottieComposition(spec = LottieCompositionSpec.RawRes(it.res))
+                LottieAnimation(
+                    modifier = Modifier
+                        .width(40.dp)
+                        .aspectRatio(1f)
+                        .clip(CircleShape),
+                    composition = composition.value,
+                    iterations = LottieConstants.IterateForever
+                )
+            }
         }
     }
 }

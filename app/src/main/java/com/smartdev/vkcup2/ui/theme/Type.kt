@@ -53,6 +53,6 @@ val Typography = Typography(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Light,
         fontSize = 10.sp,
-        color = UnEnableText
+        color = Color.White
     ),
 )

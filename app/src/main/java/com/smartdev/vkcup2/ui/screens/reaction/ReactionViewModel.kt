@@ -81,7 +81,7 @@ data class ReactionUiState(
                 image = listOf(R.drawable.reaction3),
                 reaction = listOf(
                     Reaction(emoji = Emoji.Emoji14, count = 545, isSelected = false),
-                    Reaction(emoji = Emoji.Emoji9, count = 145, isSelected = false),
+                    Reaction(emoji = Emoji.Emoji19, count = 145, isSelected = false),
                 )
             ),
             ReactionArticle(

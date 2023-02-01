@@ -25,10 +25,9 @@ enum class Emoji(@RawRes val res: Int) {
     Emoji6(R.raw.imoji6),
     Emoji7(R.raw.imoji7),
     Emoji8(R.raw.imoji8),
-    Emoji9(R.raw.imoji9),
     Emoji10(R.raw.imoji10),
     Emoji11(R.raw.imoji11),
     Emoji12(R.raw.imoji12),
-    Emoji13(R.raw.imoji13),
     Emoji14(R.raw.imoji14),
+    Emoji19(R.raw.emoji18),
 }

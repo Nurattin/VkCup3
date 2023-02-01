@@ -29,11 +29,9 @@ import com.smartdev.vkcup2.ui.theme.UnEnableText
 
 
 val listChoose = listOf(
-    R.string.multi_stage_survey_main,
-    R.string.element_mapping_main,
-    R.string.drag_and_drop_options,
-    R.string.filling_in_the_gap_main,
-    R.string.read_article_rating,
+    R.string.interactive_image,
+    R.string.publication_reaction,
+    R.string.dynamic,
 )
 
 @Composable

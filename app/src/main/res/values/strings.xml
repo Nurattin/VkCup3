@@ -10,11 +10,12 @@
     <string name="choose_format">Выберите формат</string>
 
     //ElementMapping
-    <string name="element_mapping_main">Сопоставление элементов между двумя столбцами</string>
+    <string name="publication_reaction">Реакции к публикациям</string>
+    <string name="dynamic">Динамические публикации</string>
     <string name="element_mapping">Сопоставьте элементы между двумя столбцами</string>
 
     //MultiStageQuestionnaire
-    <string name="multi_stage_survey_main">Многоступенчатый опрос с вариантами ответов</string>
+    <string name="interactive_image">Интерактивные посты</string>
     <string name="multi_stage_survey">Выберите правильный ответ</string>
     <string name="multi_stage_survey_hint">Чтобы выбрать ответ просто нажмите на него</string>
 
